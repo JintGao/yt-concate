@@ -9,7 +9,7 @@ class GetVideoList(Step):
     def process(self, data, inputs , utils):
         channel_id = inputs['channel_id']
 
-        if utils.get_video_list_filepath(channel_id):
+        if utils.video_list_file_exists(channel_id):
             print('Found existing video list file for channe id',channel_id)
             return  self.read_file(utils.get_video_list_filepath(channel_id))
 
@@ -48,6 +48,8 @@ class GetVideoList(Step):
         with open(filepath , 'r') as f:
             for url in f:
                 video_links.append(url.strip())
+
+        return  video_links
 
 class StepException(Exception):
     pass
